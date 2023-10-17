@@ -1,13 +1,38 @@
-// TODO: Include packages needed for this application
+// Packages for this application
 const inquirer = require('inquirer')
 const fs = require('fs')
-const generateMarkdown = require('./utils/generateMarkdown')
+const generateMarkdown = require('./utils/generateMarkdown.js')
 
-const licenseArr = ['Apache', 'GNU General Public', 'MIT', 'BSD 2-Clause "Simplified"', 'BSD 3-Clause "New" or "Revised"', 'Boost Software', 'Creative Commons Zero v1.0 Universal', 'Eclipse Public 2.0', 'GNU Affero General Public v3.0', 'Mozilla Public 2.0', 'The Unlicense', 'None']
+// License Array
+const licenseArr = [
+    'Apache',
+    'GNU General Public',
+    'MIT',
+    'BSD 2-Clause "Simplified"',
+    'BSD 3-Clause "New" or "Revised"',
+    'Boost Software',
+    'Creative Commons Zero v1.0 Universal',
+    'Eclipse Public 1.0',
+    'GNU Affero General Public v3.0',
+    'Mozilla Public 2.0',
+    'The Unlicense',
+    'None',]
 
-const badgesArr = ['GIT', 'GitHub', 'GitHub Actions', 'JavaScript', 'MySQL', 'Bootstrap', 'jQuery', 'Node.JS', 'Express.js', 'None']
+// Badges Array
+const badgesArr = [
+    'GIT',
+    'GitHub',
+    'GitHub Actions',
+    'JavaScript',
+    'MySQL',
+    'Bootstrap',
+    'jQuery',
+    'Node.JS',
+    'Express.js',
+    'None',
+]
 
-// TODO: Create an array of questions for user input
+// Array of questions for user input
 const questions = [
     {
         type: 'input',
@@ -61,21 +86,34 @@ const questions = [
         message: 'List test examples:',
         name: 'test',
     },
+    {
+        type: 'input',
+        message: 'What is your GitHub username?',
+        name: 'username',
+    },
+    {
+        type: 'input',
+        message: 'What is your email?',
+        name: 'email',
+    },
 ]
 
-// TODO: Create a function to write README file
+// Function to write README file
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) => {
         err ? console.log(err) : console.log('README file genertated successfully.')
     })
 }
 
-// TODO: Create a function to initialize app
+// Function to initialize app
 function init() {
     inquirer
     .prompt(questions)
     .then((data) => {
-        const readmeContent = generateMarkdown(data)
+
+        const licenseBadge = generateMarkdown.renderLicenseBadge(data.license)
+
+        const readmeContent = generateMarkdown.generateMarkdown(data)
 
         const fileName = 'README.md'
 
