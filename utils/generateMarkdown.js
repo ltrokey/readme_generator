@@ -1,4 +1,4 @@
-
+// License Badges
 const licenseBadgeUrls = {
   Apache: '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)',
 
@@ -24,6 +24,7 @@ const licenseBadgeUrls = {
 
 }
 
+// Licenses Links
 const licenseLinkUrls = {
   Apache: 'https://opensource.org/licenses/Apache-2.0',
 
@@ -48,36 +49,61 @@ const licenseLinkUrls = {
   'The Unlicense': 'http://unlicense.org/',
 }
 
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
+//Function that returns a license badge based on which license is passed in
 function renderLicenseBadge(license) {
   return license.toLowerCase() === 'none'
   ? '' : licenseBadgeUrls[license]
 }
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-
+// Function that returns the license link
 function renderLicenseLink(license) {
   return license === 'None' ? '' : licenseLinkUrls[license.toLowerCase()] || '';
 }
 
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
+//Function that returns the license section of README
 function renderLicenseSection(license) {
   return license.toLowerCase() === 'none' ? '' : `## License\n\nLicensed under the [${license}](${licenseLinkUrls[license]}) license.`
 }
 
-// TODO: Create a function to generate markdown for README
+// Project Badges
+const badgesArrUrl = {
+  GIT: '![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)',
+
+  GitHub: '![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)',
+
+  'GitHub Pages': '![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)',
+
+  'GitHub Actions': '![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)',
+
+  JavaScript: '![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)',
+
+  MySQL: '![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)',
+
+  Bootstrap: '![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)',
+
+  jQuery: '![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)',
+
+  'Node.JS': '![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)',
+
+  'Express.js': '![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)',
+}
+
+
+// Function to generate markdown for README
 function generateMarkdown(data) {
+  const selectedBadges = data.badges.map((badge) => badgesArrUrl[badge])
   const licenseBadge = renderLicenseBadge(data.license);
   const licenseLink = renderLicenseLink(data.license);
   const licenseSection = renderLicenseSection(data.license);
 
-  return `# ${data.title}${licenseBadge}${licenseLink}${licenseSection}`
+  return `# ${data.title}
+  ${licenseBadge}${licenseLink}${licenseSection}
+  ## Badges
+  ${selectedBadges.join('\n')}
+  `
 }
 
 module.exports = {
-  renderLicenseBadge,
+  // renderLicenseBadge,
   generateMarkdown,
 }

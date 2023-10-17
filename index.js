@@ -23,6 +23,7 @@ const badgesArr = [
     'GIT',
     'GitHub',
     'GitHub Actions',
+    'GitHub Pages',
     'JavaScript',
     'MySQL',
     'Bootstrap',
