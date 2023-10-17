@@ -62,7 +62,7 @@ function renderLicenseLink(license) {
 
 //Function that returns the license section of README
 function renderLicenseSection(license) {
-  return license.toLowerCase() === 'none' ? '' : `## License\n\nLicensed under the [${license}](${licenseLinkUrls[license]}) license.`
+  return license.toLowerCase() === 'none' ? '' : `\n\nLicensed under the [${license}](${licenseLinkUrls[license]}) license.`
 }
 
 // Project Badges
@@ -91,19 +91,27 @@ const badgesArrUrl = {
 
 // Function to generate markdown for README
 function generateMarkdown(data) {
-  const selectedBadges = data.badges.map((badge) => badgesArrUrl[badge])
+
+  // Licenses
   const licenseBadge = renderLicenseBadge(data.license);
   const licenseLink = renderLicenseLink(data.license);
   const licenseSection = renderLicenseSection(data.license);
 
+  // Project Badges
+  const selectedBadges = data.badges
+  .filter((badge) => badge !== 'None')
+  .map((badge) => badgesArrUrl[badge])
+
+  const badgesSection = selectedBadges.length > 0
+  ? `## Badges\n${selectedBadges.join('\n')}\n` : ''
+
   return `# ${data.title}
   ${licenseBadge}${licenseLink}${licenseSection}
-  ## Badges
-  ${selectedBadges.join('\n')}
+  ${badgesSection}
   `
 }
 
 module.exports = {
-  // renderLicenseBadge,
+  renderLicenseBadge,
   generateMarkdown,
 }
