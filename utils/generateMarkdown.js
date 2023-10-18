@@ -21,7 +21,6 @@ const licenseBadgeUrls = {
   'Mozilla Public 2.0': '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)',
 
   'The Unlicense': '[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)',
-
 }
 
 // Project Badges
@@ -47,16 +46,11 @@ const badgesArrUrl = {
   'Express.js': '![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)',
 }
 
-//Function that returns a license badge based on which license is passed in
-function renderLicenseBadge(license) {
-  return license === 'none'
-  ? '' : licenseBadgeUrls[license]
-}
-
 // Function to generate markdown for README
 function generateMarkdown(data) {
 
   // License
+  const renderLicenseBadge = (license) => (license === 'None' ? '' : licenseBadgeUrls[license])
   const licenseBadge = renderLicenseBadge(data.license);
 
   // Project Badges
@@ -74,6 +68,5 @@ function generateMarkdown(data) {
 }
 
 module.exports = {
-  renderLicenseBadge,
   generateMarkdown,
 }

@@ -112,8 +112,6 @@ function init() {
     .prompt(questions)
     .then((data) => {
 
-        const licenseBadge = generateMarkdown.renderLicenseBadge(data.license)
-
         const readmeContent = generateMarkdown.generateMarkdown(data)
 
         const fileName = 'README.md'
