@@ -68,7 +68,7 @@ const renderDescription = (data) => {
 // Installation
 const renderInstallation = (installation) => {
   return installation
-    ? `## Installation\n${installation.split('. ').map((step, index) => `${index + 1}. ${step}`).join('\n')}\n`
+    ? `## Installation\n${installation.split('. ').map((step, index) => `${index + 1}. ${step}`).join('.\n')}\n`
     : ''
 }
 
@@ -101,7 +101,7 @@ function generateMarkdown(data) {
   //Badge
   const badgesSection = renderProgramBadges(data)
 
-  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}${installationSection}${badgesSection}`
+  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${installationSection}\n${badgesSection}`
 }
 
 module.exports = {

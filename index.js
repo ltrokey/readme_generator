@@ -5,6 +5,7 @@ const generateMarkdown = require('./utils/generateMarkdown.js')
 
 // License Array
 const licenseArr = [
+    'None',
     'Apache',
     'GNU General Public',
     'MIT',
@@ -16,10 +17,11 @@ const licenseArr = [
     'GNU Affero General Public v3.0',
     'Mozilla Public 2.0',
     'The Unlicense',
-    'None',]
+]
 
 // Badges Array
 const badgesArr = [
+    'None',
     'GIT',
     'GitHub',
     'GitHub Actions',
@@ -30,7 +32,6 @@ const badgesArr = [
     'jQuery',
     'Node.JS',
     'Express.js',
-    'None',
 ]
 
 // Array of questions for user input
