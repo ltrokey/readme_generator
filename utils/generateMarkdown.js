@@ -23,7 +23,7 @@ const licenseBadgeUrls = {
   'The Unlicense': '[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)',
 }
 
-// Project Badges
+// Program Badges
 const badgesArrUrl = {
   GIT: '![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)',
 
@@ -46,26 +46,62 @@ const badgesArrUrl = {
   'Express.js': '![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)',
 }
 
+// License
+const renderLicenseBadge = (license) =>
+(license === 'None' ? '' : `\n${licenseBadgeUrls[license]}\n`)
+
+// Live Link
+const renderLiveLink = (liveLink, liveLinkUrl) =>
+liveLink === 'Yes'
+  ? `[Link to live deploy](${liveLinkUrl})\n`
+  : liveLink === '\nPlaceholder (add later)'
+  ? `[Link to live deploy](add url here)\n`
+  : ''
+
+// Description
+const renderDescription = (data) => {
+  return data.description
+  ?`## Description\n${data.description}\n`
+  : ''
+}
+
+// Installation
+const renderInstallation = (installation) => {
+  return installation
+    ? `## Installation\n${installation.split('. ').map((step, index) => `${index + 1}. ${step}`).join('\n')}\n`
+    : ''
+}
+
+// Program Badges
+const renderProgramBadges = (data) => {
+  const selectedBadges = data.badges
+      .filter((badge) => badge !== 'None')
+      .map((badge) => badgesArrUrl[badge])
+
+  return selectedBadges.length > 0
+      ? `## Badges\n${selectedBadges.join('\n')}`
+      : ''
+}
+
 // Function to generate markdown for README
 function generateMarkdown(data) {
 
   // License
-  const renderLicenseBadge = (license) =>
-  (license === 'None' ? '' : licenseBadgeUrls[license])
   const licenseBadge = renderLicenseBadge(data.license)
 
-  // Project Badges
-  const selectedBadges = data.badges
-  .filter((badge) => badge !== 'None')
-  .map((badge) => badgesArrUrl[badge])
+  //Live Link
+  const livelinkSection = renderLiveLink(data.liveLink, data.liveLinkUrl)
 
-  const badgesSection = selectedBadges.length > 0
-  ? `## Badges\n${selectedBadges.join('\n')}` : ''
+  //Description
+  const descriptionSection = renderDescription(data)
 
-  return `# ${data.title}
-  ${licenseBadge}
-  ${badgesSection}
-  `
+  //Installation
+  const installationSection = renderInstallation(data.installation)
+
+  //Badge
+  const badgesSection = renderProgramBadges(data)
+
+  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}${installationSection}${badgesSection}`
 }
 
 module.exports = {
