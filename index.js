@@ -79,6 +79,12 @@ const questions = [
         name: 'credit',
     },
     {
+        type: 'input',
+        message: 'Enter their GitHub username:',
+        name: 'addCollaborators',
+        when: (answers) => answers.credit === true
+    },
+    {
         type: 'checkbox',
         message: 'Choose your badges:',
         choices: badgesArr,
