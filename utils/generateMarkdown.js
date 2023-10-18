@@ -50,8 +50,9 @@ const badgesArrUrl = {
 function generateMarkdown(data) {
 
   // License
-  const renderLicenseBadge = (license) => (license === 'None' ? '' : licenseBadgeUrls[license])
-  const licenseBadge = renderLicenseBadge(data.license);
+  const renderLicenseBadge = (license) =>
+  (license === 'None' ? '' : licenseBadgeUrls[license])
+  const licenseBadge = renderLicenseBadge(data.license)
 
   // Project Badges
   const selectedBadges = data.badges
@@ -59,7 +60,7 @@ function generateMarkdown(data) {
   .map((badge) => badgesArrUrl[badge])
 
   const badgesSection = selectedBadges.length > 0
-  ? `## Badges\n${selectedBadges.join('\n')}\n` : ''
+  ? `## Badges\n${selectedBadges.join('\n')}` : ''
 
   return `# ${data.title}
   ${licenseBadge}

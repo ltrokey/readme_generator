@@ -37,7 +37,7 @@ const badgesArr = [
 const questions = [
     {
         type: 'input',
-        message: 'What is your project title?',
+        message: 'Project title:',
         name: 'title',
     },
     {
@@ -47,14 +47,21 @@ const questions = [
         name: 'license',
     },
     {
-        type: 'confirm',
-        message: 'Do you want to add a placeholder for the link to live deploy?',
-        name: 'placeholderLiveLink',
+        type: 'list',
+        message: 'Do you want to add a link to live deploy?',
+        choices: ['Yes', 'No', 'Placeholder (add later)'],
+        name: 'liveLink',
     },
     {
         type: 'input',
-        message: 'Please write a brief project description.',
-        name: 'description'
+        message: 'Enter url for live deploy:',
+        name: 'linkLinkUrl',
+        when: (answers) => answers.linkLink === 'Yes',
+    },
+    {
+        type: 'input',
+        message: 'Project description:',
+        name: 'description',
     },
     {
         type: 'input',
@@ -76,6 +83,12 @@ const questions = [
         message: 'Choose your badges:',
         choices: badgesArr,
         name: 'badges',
+        validate: (selected) => {
+            if (selected.includes('None') && selected.length > 1) {
+                return "You selected 'None' & another badge, please select one or the other."
+            }
+            return true
+        }
     },
     {
         type: 'input',
@@ -111,11 +124,8 @@ function init() {
     inquirer
     .prompt(questions)
     .then((data) => {
-
         const readmeContent = generateMarkdown.generateMarkdown(data)
-
         const fileName = 'README.md'
-
         writeToFile(fileName, readmeContent)
     })
 }
