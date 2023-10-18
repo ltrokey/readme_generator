@@ -24,47 +24,6 @@ const licenseBadgeUrls = {
 
 }
 
-// Licenses Links
-const licenseLinkUrls = {
-  Apache: 'https://opensource.org/licenses/Apache-2.0',
-
-  'GNU General Public': 'https://www.gnu.org/licenses/gpl-3.0',
-
-  MIT: 'https://opensource.org/licenses/MIT',
-
-  'BSD 2-Clause "Simplified"': 'https://opensource.org/licenses/BSD-2-Clause',
-
-  'BSD 3-Clause "New" or "Revised"': 'https://opensource.org/licenses/BSD-3-Clause',
-
-  'Boost Software': 'https://www.boost.org/LICENSE_1_0.txt',
-
-  'Creative Commons Zero v1.0 Universal': 'http://creativecommons.org/publicdomain/zero/1.0/',
-
-  'Eclipse Public 1.0': 'https://opensource.org/licenses/EPL-1.0',
-
-  'GNU Affero General Public v3.0': 'https://www.gnu.org/licenses/gpl-3.0',
-
-  'Mozilla Public 2.0': 'https://opensource.org/licenses/MPL-2.0',
-
-  'The Unlicense': 'http://unlicense.org/',
-}
-
-//Function that returns a license badge based on which license is passed in
-function renderLicenseBadge(license) {
-  return license.toLowerCase() === 'none'
-  ? '' : licenseBadgeUrls[license]
-}
-
-// Function that returns the license link
-function renderLicenseLink(license) {
-  return license === 'None' ? '' : licenseLinkUrls[license.toLowerCase()] || '';
-}
-
-//Function that returns the license section of README
-function renderLicenseSection(license) {
-  return license.toLowerCase() === 'none' ? '' : `\n\nLicensed under the [${license}](${licenseLinkUrls[license]}) license.`
-}
-
 // Project Badges
 const badgesArrUrl = {
   GIT: '![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)',
@@ -88,14 +47,17 @@ const badgesArrUrl = {
   'Express.js': '![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)',
 }
 
+//Function that returns a license badge based on which license is passed in
+function renderLicenseBadge(license) {
+  return license === 'none'
+  ? '' : licenseBadgeUrls[license]
+}
 
 // Function to generate markdown for README
 function generateMarkdown(data) {
 
-  // Licenses
+  // License
   const licenseBadge = renderLicenseBadge(data.license);
-  const licenseLink = renderLicenseLink(data.license);
-  const licenseSection = renderLicenseSection(data.license);
 
   // Project Badges
   const selectedBadges = data.badges
@@ -106,7 +68,7 @@ function generateMarkdown(data) {
   ? `## Badges\n${selectedBadges.join('\n')}\n` : ''
 
   return `# ${data.title}
-  ${licenseBadge}${licenseLink}${licenseSection}
+  ${licenseBadge}
   ${badgesSection}
   `
 }
