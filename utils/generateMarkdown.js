@@ -54,14 +54,14 @@ const renderLicenseBadge = (license) =>
 const renderLiveLink = (liveLink, liveLinkUrl) =>
 liveLink === 'Yes'
   ? `[Link to live deploy](${liveLinkUrl})\n`
-  : liveLink === '\nPlaceholder (add later)'
+  : liveLink === 'Placeholder (add later)'
   ? `[Link to live deploy](add url here)\n`
   : ''
 
 // Description
 const renderDescription = (data) => {
   return data.description
-  ?`## Description\n${data.description}\n`
+  ? `## Description\n${data.description}\n`
   : ''
 }
 
@@ -70,6 +70,19 @@ const renderInstallation = (installation) => {
   return installation
     ? `## Installation\n${installation.split('. ').map((step, index) => `${index + 1}. ${step}`).join('.\n')}\n`
     : ''
+}
+
+// Usage
+const renderUsage = (data) => {
+  const usageText = data.usage
+  ? `## Usage\n${data.usage}\n`
+  : ''
+
+  const screenshotText = data.screenshot
+  ? `![alt text](assets/images/screenshot.png)\n`
+  : ''
+
+  return usageText + screenshotText;
 }
 
 // Program Badges
@@ -98,10 +111,13 @@ function generateMarkdown(data) {
   //Installation
   const installationSection = renderInstallation(data.installation)
 
+  //Usage
+  const usageSection = renderUsage(data)
+
   //Badge
   const badgesSection = renderProgramBadges(data)
 
-  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${installationSection}\n${badgesSection}`
+  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${installationSection}\n${usageSection}\n${badgesSection}`
 }
 
 module.exports = {

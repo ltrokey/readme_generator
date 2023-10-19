@@ -90,6 +90,16 @@ const questions = [
         },
     },
     {
+        type: 'input',
+        message: 'Provide Instructions and Examples for Use:',
+        name: 'usage',
+        validate: (input) => {
+            return (input.trim() === '')
+            ? "Please enter instruction and examples."
+            : true
+        },
+    },
+    {
         type: 'confirm',
         message: 'Do you want to add a placeholder reminder for a screenshot?',
         name: 'screenshot',
