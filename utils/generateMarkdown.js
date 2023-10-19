@@ -75,7 +75,7 @@ const renderInstallation = (installation) => {
 // Usage
 const renderUsage = (data) => {
   const usageText = data.usage
-  ? `## Usage\n${data.usage}\n`
+  ? `## Usage\n${data.usage}\n\n`
   : ''
 
   const screenshotText = data.screenshot
@@ -83,6 +83,12 @@ const renderUsage = (data) => {
   : ''
 
   return usageText + screenshotText;
+}
+// Collaborators
+const renderCollaborators = (addCollaborators) => {
+  return addCollaborators
+  ? `## Collaborators\n${addCollaborators.split(' ').map(username => `- [${username.trim()}](https://github.com/${username.trim()})\n`).join('\n')}\n`
+  : ''
 }
 
 // Program Badges
@@ -114,10 +120,13 @@ function generateMarkdown(data) {
   //Usage
   const usageSection = renderUsage(data)
 
+  // Collaborators
+  const collaboratorsSection = renderCollaborators(data.addCollaborators)
+
   //Badge
   const badgesSection = renderProgramBadges(data)
 
-  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${installationSection}\n${usageSection}\n${badgesSection}`
+  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${installationSection}\n${usageSection}\n${collaboratorsSection}\n${badgesSection}`
 }
 
 module.exports = {
