@@ -164,7 +164,21 @@ function generateMarkdown(data) {
   // Questions
   const questionsSection = renderQuestions(data)
 
-  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${installationSection}\n${usageSection}\n${collaboratorsSection}\n${badgesSection}\n${featuresSection}\n${testSection}\n${questionsSection}`
+  // Table of Contents
+  const tableOfContents = [
+    `## Table of Contents`,
+    data.installation ? `- [Installation](#installation)` : '',
+    data.usage ? `- [Usage](#usage)` : '',
+    data.addCollaborators ? `- [Collaborators](#collaborators)` : '',
+    data.badges.length > 0 ? `- [Badges](#badges)` : '',
+    data.features ? `- [Features](#features)` : '',
+    data.test ? `- [Tests](#tests)` : '',
+    (data.username || data.email) ? `- [Questions](#questions)` : '',
+  ]
+    .filter(Boolean)
+    .join('\n')
+
+  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${tableOfContents}\n\n${installationSection}\n${usageSection}\n${collaboratorsSection}\n${badgesSection}\n${featuresSection}\n${testSection}\n${questionsSection}`
 }
 
 module.exports = {
