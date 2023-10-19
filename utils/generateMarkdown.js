@@ -84,6 +84,7 @@ const renderUsage = (data) => {
 
   return usageText + screenshotText;
 }
+
 // Collaborators
 const renderCollaborators = (addCollaborators) => {
   return addCollaborators
@@ -98,9 +99,37 @@ const renderProgramBadges = (data) => {
       .map((badge) => badgesArrUrl[badge])
 
   return selectedBadges.length > 0
-      ? `## Badges\n${selectedBadges.join('\n')}`
+      ? `## Badges\n${selectedBadges.join('\n')}\n`
       : ''
 }
+
+// Features
+const renderFeatures = (data) => {
+  return data.features
+  ? `## Features\n${data.features}\n`
+  : ''
+}
+
+// Tests
+const renderTest = (data) => {
+  return data.test
+  ? `## Tests\n${data.test}\n`
+  : ''
+}
+
+// Questions
+const renderQuestions = (data) => {
+  const myUserName = data.username
+  ? `## Questions\n[GitHub Profile](https://github.com/${data.username})\n\n`
+  : ''
+
+  const myEmail = data.email
+  ? `Please feel free to contact me via the email link below.\n\n[Email](mailto:${data.email})\n`
+  : ''
+
+  return myUserName + myEmail;
+}
+
 
 // Function to generate markdown for README
 function generateMarkdown(data) {
@@ -126,7 +155,16 @@ function generateMarkdown(data) {
   //Badge
   const badgesSection = renderProgramBadges(data)
 
-  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${installationSection}\n${usageSection}\n${collaboratorsSection}\n${badgesSection}`
+  //Features
+  const featuresSection = renderFeatures(data)
+
+  //Tests
+  const testSection = renderTest(data)
+
+  // Questions
+  const questionsSection = renderQuestions(data)
+
+  return `# ${data.title}\n${licenseBadge}\n${livelinkSection}\n${descriptionSection}\n${installationSection}\n${usageSection}\n${collaboratorsSection}\n${badgesSection}\n${featuresSection}\n${testSection}\n${questionsSection}`
 }
 
 module.exports = {
